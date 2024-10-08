@@ -1,7 +1,7 @@
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-public class Connection {
+public class MyConnection {
     private String driver = "com.mysql.cj.jdbc.Driver";
     private String url = "jdbc:mysql://127.0.0.1:3306/fav_movies";
     private String user = "root";
