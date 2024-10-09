@@ -10,29 +10,74 @@ public class Main {
         String sqlUpdate = "UPDATE movies SET title = 'Godzilla -1' WHERE title = 'Godzilla Minus One'";
         String sqlDelete = "DELETE FROM movies WHERE id = '4'";
 
-        Statement statement = connection.createStatement();
-//        PreparedStatement prepStatement = connection.prepareStatement(sqlInsert);
-//        prepStatement.setString(1, "Godzilla Minus One");
-//        prepStatement.setString(2, "2023");
-//        prepStatement.setString(3, "Takashi Yamazaki");
-//        prepStatement.setString(4, "sci-fi");
+        Statement statement = connection.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+//      PreparedStatement prepStatement = connection.prepareStatement(sqlInsert);
+        ResultSet result = statement.executeQuery(sqlSelect);
+        printResultSet(result);
 
-//        prepStatement.execute();
-//        prepStatement.close();
-//        ResultSet result = statement.executeQuery(sqlSelect);
-//
-//        while (result.next()) {
-//            System.out.print(result.getInt(1) + " - ");
-//            System.out.print(result.getString("title") + " ");
-//            System.out.print(result.getString("release_year") + " ");
-//            System.out.print(result.getString("director") + " ");
-//            System.out.print(result.getString("genres") + "\n");
-//            System.out.println();
-//        }
-//
-//        statement.close();
-
-        statement.execute(sqlDelete);
         statement.close();
+        result.close();
+        connection.close();
+    }
+
+    public static void printLine(int[] columnWidths) {
+        for (int width : columnWidths) {
+            System.out.print("+");
+            System.out.print("-".repeat(width + 2));
+        }
+        System.out.println("+");
+    }
+
+    public static void printResultSet(ResultSet rs) throws SQLException {
+        // Obter os metadados do ResultSet
+        ResultSetMetaData rsmd = rs.getMetaData();
+        int columnCount = rsmd.getColumnCount();
+
+        // Definir as larguras de cada coluna (pode ser ajustado manualmente)
+        int[] columnWidths = new int[columnCount];
+        for (int i = 1; i <= columnCount; i++) {
+            if (rsmd.getColumnName(i).equalsIgnoreCase("id")) {
+                columnWidths[i - 1] = 5;
+            } else {
+                // Para as outras colunas, calculamos dinamicamente
+                columnWidths[i - 1] = Math.max(rsmd.getColumnName(i).length(), 15); // 15 é o tamanho mínimo para outras colunas
+            }
+        }
+
+        // Ajustar largura das colunas de acordo com os dados
+        while (rs.next()) { // Itera normalmente para calcular a largura das colunas
+            for (int i = 1; i <= columnCount; i++) {
+                String value = rs.getString(i);
+                if (value != null) {
+                    columnWidths[i - 1] = Math.max(columnWidths[i - 1], value.length());
+                }
+            }
+        }
+        rs.beforeFirst(); // Voltar ao início novamente
+
+        // Imprimir a linha de cabeçalho
+        printLine(columnWidths);
+        for (int i = 1; i <= columnCount; i++) {
+            System.out.printf("| %-"+ (columnWidths[i - 1] + 1) +"s", rsmd.getColumnName(i));
+        }
+        System.out.println("|");
+
+        // Imprimir a linha separadora
+        printLine(columnWidths);
+
+        // Imprimir os dados do ResultSet
+        while (rs.next()) {
+            for (int i = 1; i <= columnCount; i++) {
+                String value = rs.getString(i);
+                if (value == null) {
+                    value = ""; // Tratar valores nulos
+                }
+                System.out.printf("| %-"+ (columnWidths[i - 1] + 1) +"s", value);
+            }
+            System.out.println("|");
+        }
+
+        // Imprimir a última linha de rodapé
+        printLine(columnWidths);
     }
 }
