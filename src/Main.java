@@ -24,13 +24,14 @@ public class Main {
 
             switch (operation) {
                 case 1:
+                    clearTerminal();
                     printResultSet(result);
                     int r;
                     do {
                         System.out.print("digite 1 para voltar ao menu: ");
                         r = scanner.nextInt();
                     } while (r != 1);
-//                    clearTerminal();
+                    clearTerminal();
                     continue;
                 case 2:
                     break;
@@ -121,20 +122,20 @@ public class Main {
         System.out.println("---------------------------------------------------");
     }
 
-//    public static void clearTerminal() {
-//        try {
-//            // Identifica o sistema operacional
-//            String sistemaOperacional = System.getProperty("os.name");
-//
-//            if (sistemaOperacional.contains("Windows")) {
-//                // Executa o comando 'cls' no CMD para limpar a tela
-//                new ProcessBuilder( "cls").inheritIO().start().waitFor();
-//            } else {
-//                // Executa o comando 'clear' em sistemas UNIX/Linux/Mac
-//                new ProcessBuilder("clear").inheritIO().start().waitFor();
-//            }
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//    }
+    public static void clearTerminal() {
+        try {
+            // Identifica o sistema operacional
+            String sistemaOperacional = System.getProperty("os.name");
+
+            if (sistemaOperacional.contains("Windows")) {
+                // Executa o comando 'cls' no CMD para limpar a tela
+                new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
+            } else {
+                // Executa o comando 'clear' em sistemas UNIX/Linux/Mac
+                new ProcessBuilder("clear").inheritIO().start().waitFor();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 }
