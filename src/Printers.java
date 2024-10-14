@@ -20,7 +20,7 @@ public class Printers {
         // Definir as larguras de cada coluna (pode ser ajustado manualmente)
         int[] columnWidths = new int[columnCount];
         for (int i = 1; i <= columnCount; i++) {
-            if (rsmd.getColumnName(i).equalsIgnoreCase("id") || rsmd.getColumnName(i).equalsIgnoreCase("release_year")) {
+            if (rsmd.getColumnName(i).equalsIgnoreCase("id") || rsmd.getColumnName(i).equalsIgnoreCase("ano")) {
                 columnWidths[i - 1] = 4;
             } else {
                 // Para as outras colunas, calculamos dinamicamente
