@@ -18,10 +18,10 @@ public class Main {
             Thread.sleep(700);
         }
 
-        String sqlSelect = "SELECT * FROM filmes"; // pronto
-        String selectId = "SELECT 1 FROM filmes WHERE id = ?";// pronto
-        String sqlInsert = "INSERT INTO filmes (titulo, ano, diretor, genero) VALUES (?, ?, ?, ?)";// pronto
-        String sqlDelete = "DELETE FROM filmes WHERE id = ?";// pronto
+        String sqlSelect = "SELECT * FROM filmes";
+        String selectId = "SELECT 1 FROM filmes WHERE id = ?";
+        String sqlInsert = "INSERT INTO filmes (titulo, ano, diretor, genero) VALUES (?, ?, ?, ?)";
+        String sqlDelete = "DELETE FROM filmes WHERE id = ?";
 
         Statement selectState = connection.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
         PreparedStatement insertState = connection.prepareStatement(sqlInsert);

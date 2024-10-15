@@ -15,10 +15,6 @@ formatados
 
 e **DELETE** selecionado pelo _id_
 
-O banco possui apenas uma tabela para armazenar filmes que gosto.
-A tabela possui as colunas: **id** (_Primary-key_ com AUTO INCREMENT),
-**titulo**, **ano**, **diretor** e **genero**.
-
 ## Caso queira testar
 
 Basta dar um git clone no repositório ou baixar ele todo em .zip e quando
@@ -29,8 +25,12 @@ terminal de sua preferência na pasta correta e digitar:
 
 `java -jar projeto-moviesDB.jar`
 
+Caso queira se conectar a outro banco de dados, terá que alterar a
+url, usuário e senha para fazer a conexão e alterar os comandos SQL para
+a nova tabela
 
-**Detalhe importante: precisa ter o Java JRE versão 17 ou mais recente
+
+**Detalhe importante: precisa ter o Java versão 17 ou posterior
 instalado**.
 
 (Testei apenas em ambiente Windows, não sei se funciona em Linux/Mac)
