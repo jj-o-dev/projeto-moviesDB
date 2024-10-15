@@ -1,7 +1,7 @@
 # Resumo do projeto
 **Uma aplicação Java com interface CLI que faz conexão com
 banco de dados MySQL remoto**
-(encontrei em [freesqldatabase.com](freesqldatabase.com), é grátis)
+(encontrei em freesqldatabase.com, é grátis)
 **usando JDBC.**
 
 **A interface faz 4 operações**:
